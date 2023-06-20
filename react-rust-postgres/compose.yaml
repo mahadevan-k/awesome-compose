@@ -12,6 +12,16 @@ services:
       - ./frontend/src:/code/src:ro
 
   backend:
+    x-tinkr:
+      load_balancer:
+        tenancy: dedicated
+        healthcheck:
+          timeout: 10
+          healthy-threshold: 3
+          unhealthy-threshold: 5
+          port: 80
+          path: /
+          interval: 120
     build:
       context: backend
       target: development
